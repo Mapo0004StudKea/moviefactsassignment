@@ -85,4 +85,33 @@ public class MovieRepository {
         }
         return movie;
     }
+
+    public long countMoviesWithAward() {
+        long count = 0;
+
+        try {
+            File file = new ClassPathResource("imdb-data.csv").getFile();
+            Scanner input = new Scanner(file);
+
+            input.nextLine();
+
+            while (input.hasNextLine()) {
+                Scanner lineScanner = new Scanner(input.nextLine()).useDelimiter(";");
+                lineScanner.next();
+                lineScanner.next();
+                lineScanner.next();
+                lineScanner.next();
+                lineScanner.next();
+
+
+                if (lineScanner.next().equals("Yes")) {
+                    count++;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e);
+        }
+
+        return count;
+    }
 }

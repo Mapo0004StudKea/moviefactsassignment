@@ -5,6 +5,7 @@ import com.example.moviefacts.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,11 +32,28 @@ public class MovieService {
 
         count = Math.min(count, size);
 
-        for (int i = 1; i < count; i++) {
+        for (int i = 0; i < count; i++) {
             int randomIndex = random.nextInt(size);
             randomMovies.add(movieList.get(randomIndex));
         }
 
         return randomMovies;
+    }
+
+    public Movie getRandoms() {
+        List<Movie> movieList = movieRepository.findAll();
+        int size = movieList.size();
+        Random random = new Random();
+        int ran = random.nextInt(size);
+        return movieList.get(ran);
+    }
+    public long countMoviesWithAward() {
+        return movieRepository.countMoviesWithAward();
+    }
+
+    public List<Movie> findAllSort() {
+        List<Movie> listMovie = movieRepository.findAll();
+        Collections.sort(listMovie);
+        return listMovie;
     }
 }

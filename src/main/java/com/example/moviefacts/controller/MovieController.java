@@ -40,18 +40,20 @@ public class MovieController {
         return movieRepository.getFirst().toString();
     }
 
-    //bør være service
+    // http://localhost:8080/getrandom
     @GetMapping("/getrandom")
     public Movie getRandom() {
-        List<Movie> movieList = movieRepository.findAll();
-        int size = movieList.size();
-        Random random = new Random();
-        int ran = random.nextInt(size);
-        return movieList.get(ran);
+        return Service.getRandoms();
     }
     // http://localhost:8080/getTenSortByPopularity
     @GetMapping("/getTenSortByPopularity")
     public List<Movie> getTenSortByPopularity() {
         return Service.getTenSortByPopularity();
+    }
+    // http://localhost:8080/howManyWonAnAward
+    @GetMapping("/howManyWonAnAward")
+    public String howManyWonAnAward() {
+        long count = Service.countMoviesWithAward();
+        return "Number of movies that won an award: " + count;
     }
 }
