@@ -1,10 +1,10 @@
 package com.example.moviefacts.controller;
 
+import com.example.moviefacts.Service.MovieService;
 import com.example.moviefacts.model.Movie;
 import com.example.moviefacts.repository.MovieRepository;
+import org.apache.catalina.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +16,8 @@ public class MovieController {
 
     @Autowired
     MovieRepository movieRepository;
-
+    @Autowired
+    MovieService Service;
     @GetMapping("/")
     public String index(){
         return "/findall returnerer alle film<br>"
@@ -47,5 +48,10 @@ public class MovieController {
         Random random = new Random();
         int ran = random.nextInt(size);
         return movieList.get(ran);
+    }
+    // http://localhost:8080/getTenSortByPopularity
+    @GetMapping("/getTenSortByPopularity")
+    public List<Movie> getTenSortByPopularity() {
+        return Service.getTenSortByPopularity();
     }
 }

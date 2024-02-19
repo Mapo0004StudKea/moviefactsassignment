@@ -1,6 +1,6 @@
 package com.example.moviefacts.model;
 
-public class Movie {
+public class Movie implements Comparable<Movie>{
 //Movie POJO
     //Year;Length;Title;Subject;Popularity;Awards
 
@@ -74,4 +74,8 @@ public class Movie {
                 '}';
     }
 
+    @Override
+    public int compareTo(Movie movie) {
+        return this.popularity - movie.popularity;
+    }
 }
